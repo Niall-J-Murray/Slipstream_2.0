@@ -10,35 +10,74 @@
 </head>
 <body>
 <header>
-  <ul id="nav-bar">
-    <div id="nav-logo">
-      <li><img alt="site logo" src="/images/customLogoWhite.png"
-               style="height: 50px; width: 300px; margin-left: 10px"></li>
-    </div>
-    <div id="nav-links">
-      <li><a href="/home">Home</a></li>
-      <div th:if="${isLoggedIn != true}">
-        <li><a href="/register">Register</a></li>
-        <li><a href="/login">Login</a></li>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><img alt="site logo" src="/images/customLogoWhite.png"
+                                            style="height: 50px; width: 300px; margin-left: 10px"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/home">Home</a>
+          <div th:if="${isAdmin == true}">
+            <a class="nav-item nav-link active" href="/admin">Admin</a>
+          </div>
+          <div th:if="${isLoggedIn != true}">
+            <a class="nav-item nav-link" href="/login">Login</a>
+          </div>
+          <div th:if="${isLoggedIn != true}">
+            <a class="nav-item nav-link" href="/register">Register</a>
+          </div>
+          <div th:if="${isLoggedIn == true}">
+            <a class="nav-item nav-link " href="/dashboard">Dashboard</a>
+          </div>
+          <div th:if="${isLoggedIn == true}">
+            <a class="nav-item nav-link" href="/confirm_logout">Logout</a>
+          </div>
+        </div>
       </div>
-      <div th:if="${isLoggedIn == true}">
-        <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/confirm_logout">Logout</a></li>
+      <div>
+        <form action="" method="POST" th:action="@{/admin/addDrivers}">
+          <button class="btn btn-danger navbar-btn">Add Drivers</button>
+        </form>
+        <form action="" method="POST" th:action="@{admin/updateDrivers}">
+          <button class="btn btn-danger navbar-btn">Update Drivers</button>
+        </form>
       </div>
-    </div>
-    <div id="nav-buttons">
-      <form action="" method="POST" th:action="@{/admin/addDrivers}">
-        <li id="add">
-          <button type="submit">Add Drivers</button>
-        </li>
-      </form>
-      <form action="" method="POST" th:action="@{admin/updateDrivers}">
-        <li id="update">
-          <button type="submit">Update Drivers</button>
-        </li>
-      </form>
-    </div>
-  </ul>
+    </nav>
+  </div>
+
+  <!--  <ul id="nav-bar">-->
+  <!--    <div id="nav-logo">-->
+  <!--      <li><img alt="site logo" src="/images/customLogoWhite.png"-->
+  <!--               style="height: 50px; width: 300px; margin-left: 10px"></li>-->
+  <!--    </div>-->
+  <!--    <div id="nav-links">-->
+  <!--      <li><a href="/home">Home</a></li>-->
+  <!--      <div th:if="${isLoggedIn != true}">-->
+  <!--        <li><a href="/register">Register</a></li>-->
+  <!--        <li><a href="/login">Login</a></li>-->
+  <!--      </div>-->
+  <!--      <div th:if="${isLoggedIn == true}">-->
+  <!--        <li><a href="/dashboard">Dashboard</a></li>-->
+  <!--        <li><a href="/confirm_logout">Logout</a></li>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <div id="nav-buttons">-->
+  <!--      <form action="" method="POST" th:action="@{/admin/addDrivers}">-->
+  <!--        <li id="add">-->
+  <!--          <button type="submit">Add Drivers</button>-->
+  <!--        </li>-->
+  <!--      </form>-->
+  <!--      <form action="" method="POST" th:action="@{admin/updateDrivers}">-->
+  <!--        <li id="update">-->
+  <!--          <button type="submit">Update Drivers</button>-->
+  <!--        </li>-->
+  <!--      </form>-->
+  <!--    </div>-->
+  <!--  </ul>-->
 </header>
 <section id="background">
 

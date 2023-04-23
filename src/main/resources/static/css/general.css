@@ -24,9 +24,14 @@ body {
     background-repeat: no-repeat;
 }
 
-* {
-    box-sizing: border-box;
+/*fix navbar background and finish bootstrap layouts for all pages*/
+.navbar {
+    background-color: black
 }
+
+/** {*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 button {
     background: #2ea44f;
@@ -51,95 +56,95 @@ button:focus {
     outline: none;
 }
 
-section {
-    float: left;
-}
+/*section {*/
+/*    float: left;*/
+/*}*/
 
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
+/*.clearfix::after {*/
+/*    content: "";*/
+/*    clear: both;*/
+/*    display: table;*/
+/*}*/
 
-#home-links {
-    display: inline;
-    float: top;
-    padding-left: 1%;
-    padding-bottom: 1%;
-}
+/*#home-links {*/
+/*    display: inline;*/
+/*    float: top;*/
+/*    padding-left: 1%;*/
+/*    padding-bottom: 1%;*/
+/*}*/
 
-#rules {
-    background: black;
-    border: 1px solid white;
-    float: left;
-    width: 100%;
-    padding: 1%;
-}
+/*#rules {*/
+/*    background: black;*/
+/*    border: 1px solid white;*/
+/*    float: left;*/
+/*    width: 100%;*/
+/*    padding: 1%;*/
+/*}*/
 
-#admin-logged {
-    float: left;
-    width: 25%;
-    margin-right: 30px;
-}
+/*#admin-logged {*/
+/*    float: left;*/
+/*    width: 25%;*/
+/*    margin-right: 30px;*/
+/*}*/
 
-#admin-leagues {
-    float: none;
-    display: inline-flex;
-    padding: 2%;
-    margin-bottom: 3%;
-}
+/*#admin-leagues {*/
+/*    float: none;*/
+/*    display: inline-flex;*/
+/*    padding: 2%;*/
+/*    margin-bottom: 3%;*/
+/*}*/
 
-#admin-users {
-    float: left;
-    width: 40%;
-}
+/*#admin-users {*/
+/*    float: left;*/
+/*    width: 40%;*/
+/*}*/
 
-#admin-drivers {
-    float: left;
-    width: 40%;
-}
+/*#admin-drivers {*/
+/*    float: left;*/
+/*    width: 40%;*/
+/*}*/
 
-.top-section {
-    float: none;
-    padding: 2%;
-}
+/*.top-section {*/
+/*    float: none;*/
+/*    padding: 2%;*/
+/*}*/
 
-.left-table {
-    padding: 1%;
-}
+/*.left-table {*/
+/*    padding: 1%;*/
+/*}*/
 
-.right-table {
-    padding: 1%;
-}
+/*.right-table {*/
+/*    padding: 1%;*/
+/*}*/
 
-#dash-welcome {
-    float: left;
-    width: 25%;
-}
+/*#dash-welcome {*/
+/*    float: left;*/
+/*    width: 25%;*/
+/*}*/
 
-#dash-info {
-    float: none;
-    display: inline-flex;
-    padding: 1%;
-}
+/*#dash-info {*/
+/*    float: none;*/
+/*    display: inline-flex;*/
+/*    padding: 1%;*/
+/*}*/
 
-#dash-table1a {
-    float: left;
-    padding-left: 1%;
-}
+/*#dash-table1a {*/
+/*    float: left;*/
+/*    padding-left: 1%;*/
+/*}*/
 
-#dash-table1b {
-    float: left;
-    padding-left: 1%;
-}
+/*#dash-table1b {*/
+/*    float: left;*/
+/*    padding-left: 1%;*/
+/*}*/
 
-#dash-table2a {
-    float: left;
-}
+/*#dash-table2a {*/
+/*    float: left;*/
+/*}*/
 
-#dash-table2b {
-    float: left;
-}
+/*#dash-table2b {*/
+/*    float: left;*/
+/*}*/
 
 a {
     color: white;
@@ -190,29 +195,29 @@ li a:hover {
     text-decoration-line: underline;
 }
 
-#add {
-    float: right;
-}
+/*#add {*/
+/*    float: right;*/
+/*}*/
 
-#update {
-    float: right;
-}
+/*#update {*/
+/*    float: right;*/
+/*}*/
 
-#update:focus {
-    box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
-    outline: none;
-}
+/*#update:focus {*/
+/*    box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;*/
+/*    outline: none;*/
+/*}*/
 
-#confirm-pick {
-    display: inline;
-    margin-right: 20px;
-    margin-bottom: 10px;
-}
+/*#confirm-pick {*/
+/*    display: inline;*/
+/*    margin-right: 20px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
-#team-form button {
-    margin-top: 10px;
-    margin-left: 25px;
-}
+/*#team-form button {*/
+/*    margin-top: 10px;*/
+/*    margin-left: 25px;*/
+/*}*/
 
 li button {
     background-color: #2ea44f;
