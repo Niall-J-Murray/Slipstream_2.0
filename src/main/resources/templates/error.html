@@ -10,11 +10,11 @@
 </head>
 <body>
 <header>
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark bg-black">
+    <div class="container nav">
       <a class="navbar-brand" href="/"><img alt="site logo" src="/images/customLogoWhite.png"
                                             style="height: 50px; width: 300px; margin-left: 10px"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
               aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -23,31 +23,27 @@
           <a class="nav-item nav-link" href="/home">Home</a>
         </div>
       </div>
-    </nav>
-  </div>
-
-  <!--  <ul class="nav-bar">-->
-  <!--    <div id="nav-logo">-->
-  <!--      <li><img alt="site logo" src="/images/customLogoWhite.png"-->
-  <!--               style="height: 50px; width: 300px; margin-left: 10px"></li>-->
-  <!--    </div>-->
-  <!--    <div id="nav-links">-->
-  <!--      <li><a href="/home">Home</a></li>-->
-  <!--    </div>-->
-  <!--  </ul>-->
+    </div>
+  </nav>
 </header>
-<section id="background">
-  Sorry, unexpected error!
-  Please go back and try again.
-  <p>
-    -or-
-    <a href="/home">Go to Home</a>
-  </p>
-  <p>
-    -or-
-    <a href="/dashboard">Go to Dashboard</a>
-  </p>
-</section>
+<div class="container">
+  <div class="row">
+    <h2>Sorry, something went wrong!</h2>
+    <h3>Please go back and try again...</h3>
+    <br>
+  </div>
+  <div>
+    <button class="btn btn-link" onclick="window.location.href='/home';">
+      Go to Homepage
+    </button>
+    <br>
+  </div>
+  <div>
+    <button class="btn btn-link" onclick="window.location.href='/dashboard';">
+      Go to Dashboard
+    </button>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
