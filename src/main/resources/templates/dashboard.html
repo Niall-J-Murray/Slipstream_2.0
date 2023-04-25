@@ -41,72 +41,88 @@
     </div>
   </nav>
 </header>
+//TODO
+// Check navbar on dashboard height
+// fix admin & register layout
 <div class="container">
-  <div class="row">
-    <div class="col-sm-6">
-      <h2><u>[[Dashboard]]</u></h2>
-      <h3 th:text="|Hello ${user.username}, welcome to Slipstream F1 Draft Picks!|"></h3>
-      <div id="points-help">
-        > All players will start on 0 points, and will only score points from future F1 races this season.<br>
-        > Any current points your driver has will not be added to your team points.<br>
-        > Tie breaks will be won by whoever picked last with their first pick.<br>
-        > Once a league is full the game will start...<br>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div style="margin: 60px" th:if="${isAdmin == true}">
-        <p th:text="|Sorry, admin cannot play.|"></p>
-        <a href="/admin">Go to admin dashboard</a>
-      </div>
-      <div class="dash-text" th:if="${isAdmin != true}">
-        <div class="dash-text" th:if="${user.team} != null">
-          <p th:text="|Your team: '${user.team.teamName}'|"></p>
-          <p th:text="|Random 1st pick draft number (1-10): ${user.team.firstPickNumber}|"></p>
-          <p th:text="|Random 2nd pick draft number (11-20): ${user.team.secondPickNumber}|"></p>
-          <div>
-            <p th:if="${!leagueFull}"> Draft can start when league is full.</p>
-            <div th:if="${leagueFull and currentPickNumber <= 20}">
-              <p th:if="${!timeToPick}">
-                Draft in progress, please wait for your turn to pick.</p>
-              <u><h2 style="color: #2ea44f" th:text="|Current pick number: ${currentPickNumber}|"></h2></u>
-              <u><h2 style="color: #2ea44f" th:if="${!timeToPick}"
-                     th:text="|It's ${nextUserPick}'s turn to select a driver|"></h2></u>
-              <u><h2 style="color: #2ea44f" th:if="${timeToPick}"
-                     th:text="|It's your turn to pick ${user.username}!|"></h2></u>
-            </div>
-            <div th:if="${currentPickNumber > 20}">
-              <h3>Your league is active, good luck!</h3>
-              <h3>Check back after each race to see your ranking.</h3>
-            </div>
-          </div>
+  <div class="shadow-inner">
+    <h2 th:text="|${user.username}'s Dashboard|"></h2>
+    <hr>
+    <div class="row">
+      <div class="col-sm-5">
+        <div th:if="${isAdmin == true}">
+          <h3 th:text="|Sorry, admin cannot play!|"></h3><br>
+          <h3><a href="/admin">Go to admin dashboard</a></h3>
         </div>
-        <div class="dash-text" th:if="${leagueFull} != true">
-          <div th:unless="${user.team} != null">
-            <p th:text="|${currentLeague.leagueName} is open to join|"></p>
-            <p th:text="|Once the league is full, the draft can begin|"></p>
-            <p th:text="|Choose a team name to get started...|"></p>
+        <div th:if="${isAdmin != true}">
+          <div th:if="${user.team} != null">
+            <p th:text="|Your team: '${user.team.teamName}'|"></p>
+            <p th:text="|Random 1st pick draft number (1-10): ${user.team.firstPickNumber}|"></p>
+            <p th:text="|Random 2nd pick draft number (11-20): ${user.team.secondPickNumber}|"></p>
+            <div>
+              <p th:if="${!leagueFull}" th:text="|League is ${teamLeague.teams.size()} of 10 teams full.|"></p>
+              <p th:if="${!leagueFull}"> Draft will start when league is full...</p>
+              <div th:if="${leagueFull and currentPickNumber <= 20}">
+                <p th:if="${!timeToPick}">
+                  Draft in progress, please wait for your turn to pick.</p>
+                <h4 style="color: #2ea44f; text-decoration-line: underline"
+                    th:text="|Current pick number: ${currentPickNumber}|"></h4>
+                <h4 style="color: #2ea44f; text-decoration-line: underline" th:if="${!timeToPick}"
+                    th:text="|It's ${nextUserPick}'s turn to select a driver|"></h4>
+                <h4 style="color: #2ea44f; text-decoration-line: underline" th:if="${timeToPick}"
+                    th:text="|It's your turn to pick ${user.username}!|"></h4>
+              </div>
+              <div th:if="${currentPickNumber > 20}">
+                <h3>Your league is active!</h3>
+                <h3>Check back after each race to see your ranking.</h3>
+              </div>
+            </div>
           </div>
+          <div th:if="${leagueFull} != true">
+            <div th:unless="${user.team} != null">
+              <p th:text="|${currentLeague.leagueName} is open to join|"></p>
+              <p th:text="|Once the league is full, the draft can begin|"></p>
+              <p th:text="|Choose a team name to get started...|"></p>
+            </div>
 
-          <fieldset class="dash-text" style="width: 400px" th:unless="${user.team} != null">
-            <legend>Create Team</legend>
-            <div class="dash-text" id="team-form" th:unless="${user.team} != null">
-              <form action="" method="POST" th:action="@{/dashboard/{userId} (userId=${user.userId})}"
-                    th:object="${user}">
-                <div class="form-group">
-                  <label for="teamName">Team Name:</label>
-                  <input id="teamName" name="teamName" required th:field="*{team.teamName}"
-                         th:placeholder="|Team ${user.username}|"
-                         type="text"/>
-                  <div class="error-message" th:if="${param.error != null}">
-                    Sorry, this team name is already taken
+            <fieldset th:unless="${user.team} != null">
+              <legend>Create Team</legend>
+              <div id="team-form" th:unless="${user.team} != null">
+                <form action="" method="POST" th:action="@{/dashboard/{userId} (userId=${user.userId})}"
+                      th:object="${user}">
+                  <div class="form-group">
+                    <label for="teamName">Team Name:</label>
+                    <input id="teamName" name="teamName" required th:field="*{team.teamName}"
+                           th:placeholder="|Team ${user.username}|"
+                           type="text"/>
+                    <div class="error-message" th:if="${param.error != null}">
+                      Sorry, that team name is already taken...
+                    </div>
+                    <input th:field="${currentLeague}" th:value="${currentLeague}" type="hidden"/>
+                    <div>
+                      <button class="btn btn-success m-2" type="submit">Submit</button>
+                    </div>
                   </div>
-                  <input th:field="${currentLeague}" th:value="${currentLeague}" type="hidden"/>
-                  <button class="btn btn-success" type="submit">Submit</button>
-                </div>
-              </form>
-            </div>
-          </fieldset>
+                </form>
+              </div>
+            </fieldset>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-7">
+        <div>
+          <h5>Reminders</h5>
+          <ul>
+            <li>All players will start on 0 points and will only score points from F1 races after the league is
+              active.
+            </li>
+            <li>Any current points your driver has will not be added to your team points.</li>
+            <li>Tie breaks will be won by whoever picked last with their first pick.</li>
+            <li>Once a league is has 10 teams the draft picks will start.</li>
+            <li>When all drivers are picked, the league is active.</li>
+          </ul>
+        </div>
+        <h5>Good Luck!</h5>
       </div>
     </div>
   </div>
@@ -118,14 +134,13 @@
       <table class="table caption-top league-table">
         <caption>
           <h3 th:text="${teamLeague.leagueName}"></h3>
-          <p th:if="${!leagueFull}" th:text="|${teamLeague.teams.size()} of 10 teams in league|"></p>
         </caption>
-        <th>Player:</th>
-        <th>Team:</th>
-        <th>1st Pick#:</th>
-        <th>2nd Pick#:</th>
+        <th>Player</th>
+        <th>Team</th>
+        <th>1st Pick</th>
+        <th>2nd Pick</th>
         <tr th:each="team : ${teamsByRank}">
-          <td>[[${team.getUser().getUsername()}]]</td>
+          <td th:text="${team.user.username}"></td>
           <td>[[${team.getTeamName()}]]</td>
           <td>[[${team.getFirstPickNumber}]]</td>
           <td>[[${team.getSecondPickNumber}]]</td>
@@ -133,56 +148,54 @@
       </table>
     </div>
     <div class="col-sm-8">
-      <div class="form-check">
-        <table class="table caption-top league-table">
-          <caption><h3>Undrafted Drivers
-            <small>[[|${availableDrivers.size()}/20 drivers remaining|]]</small></h3>
-          </caption>
-          <form action="" method="POST" th:action="@{/dashboard/{userId}/draftPick (userId=${user.userId})}"
-                th:object="${driver}">
-            <p class="error-message" th:if="${param.error != null and user.team.teamName != null}">
-              Please select a driver below
-            </p>
-            <!--          <th th:if="${leagueFull and timeToPick}">Your Pick:</th>-->
-            <th th:if="${!leagueFull and !timeToPick}">Driver:</th>
-            <th th:if="${leagueFull and !timeToPick}">
-              Driver:
-              <button disabled class="btn btn-success" id="confirm-pick" type="submit">Pick</button>
-            </th>
-            <th th:if="${leagueFull and timeToPick}">
-              Driver:
-              <button class="btn btn-success" id="confirm-pick" type="submit">Pick</button>
-            </th>
-            <!--            <th>Driver:</th>-->
-            <th>Rank:</th>
-            <th>Points:</th>
-            <th>Nationality</th>
-            <th>Car#:</th>
-            <th>Constructor:</th>
-            <tr th:each="driverInfo : ${availableDrivers}">
-              <td th:if="${!leagueFull and !timeToPick}" th:text="${driverInfo.surname}"></td>
-              <td th:if="${leagueFull and !timeToPick}">
-                <label class="form-check-label" for="driver-pick" th:field="${driverInfo.driverId}" th:text="${driverInfo.surname}"></label>
+      <table class="table caption-top league-table">
+        <caption><h3>Undrafted Drivers -
+          <small>[[| (${availableDrivers.size()}/20 remaining)|]]</small></h3>
+          <h5 class="error-message" th:if="${param.error != null and user.team.teamName != null}">
+            Please pick a driver, then click confirm
+          </h5>
+        </caption>
+        <form action="" method="POST" th:action="@{/dashboard/{userId}/draftPick (userId=${user.userId})}"
+              th:object="${driver}">
+          <th th:if="${leagueFull and !timeToPick}" id="confirm-pick">
+            <button disabled class="btn btn-success" id="pick-button" type="submit">Confirm</button>
+          </th>
+          <th th:if="${leagueFull and timeToPick}" id="confirm-pick">
+            <button class="btn btn-success" id="pick-button" type="submit">Confirm</button>
+          </th>
+          <th>Driver</th>
+          <th>Rank</th>
+          <th>Points</th>
+          <th>Nationality</th>
+          <th>Car#</th>
+          <th>Constructor</th>
+          <tr th:each="driverInfo : ${availableDrivers}">
+            <td th:if="${leagueFull and !timeToPick}">
+              <div class="form-check">
                 <input disabled type="radio" class="form-check-input" name="driver-pick" id="driver-pick"
                        th:field="*{driverId}"
-                       th:value="${driverInfo.driverId}"/>
-              </td>
-              <td th:if="${leagueFull and timeToPick}">
-                <label class="form-check-label" for="driver-pick" th:field="${driverInfo.driverId}" th:text="${driverInfo.surname}"></label>
+                       th:value="${driverInfo.driverId}">
+                <label class="form-check-label" for="driver-pick" th:field="${driverInfo.driverId}">Pick</label>
+              </div>
+            </td>
+            <td th:if="${leagueFull and timeToPick}">
+              <div class="form-check">
                 <input type="radio" class="form-check-input" name="driver-pick" id="driver-pick"
                        th:field="*{driverId}"
-                       th:value="${driverInfo.driverId}"/>
-              </td>
-              <!--              <td th:text="${driverInfo.surname}"></td>-->
-              <td th:text="${driverInfo.standing}"></td>
-              <td th:text="${driverInfo.points.intValue()}"></td>
-              <td th:text="${driverInfo.nationality}"></td>
-              <td th:text="${driverInfo.carNumber}"></td>
-              <td th:text="${driverInfo.constructor}"></td>
-            </tr>
-          </form>
-        </table>
-      </div>
+                       th:value="${driverInfo.driverId}">
+                <label class="form-check-label" for="driver-pick" th:field="${driverInfo.driverId}">Pick</label>
+              </div>
+            </td>
+            <td th:text="${driverInfo.surname}"></td>
+            <td th:text="${driverInfo.standing}"></td>
+            <td th:text="${driverInfo.points.intValue()}"></td>
+            <td th:text="${driverInfo.nationality}"></td>
+            <td th:text="${driverInfo.carNumber}"></td>
+            <td th:text="${driverInfo.constructor}"></td>
+          </tr>
+
+        </form>
+      </table>
     </div>
   </div>
 </div>
@@ -234,80 +247,6 @@
     </div>
   </div>
 </div>
-
-<!--<div class="container" th:if="${currentPickNumber <= 20}">-->
-<!--  <div class="row">-->
-<!--    <div class="col-auto">-->
-<!--      <form action="" method="POST" th:action="@{/dashboard/{userId}/draftPick (userId=${user.userId})}"-->
-<!--            th:object="${driver}">-->
-<!--        <div>-->
-<!--          <table class="table caption-top league-table">-->
-<!--            <caption><h3>Undrafted Drivers:</h3>-->
-<!--              <div>-->
-<!--                <p style="display:inline;">[[|${availableDrivers.size()}/20 drivers remaining|]]</p>-->
-<!--                <button class="btn btn-success" id="confirm-pick" th:if="${leagueFull and timeToPick}" type="submit">-->
-<!--                  Confirm Pick-->
-<!--                </button>-->
-<!--                <p class="error-message" th:if="${param.error != null and user.team.teamName != null}">-->
-<!--                  Please select a driver below-->
-<!--                </p>-->
-<!--              </div>-->
-<!--            </caption>-->
-<!--            <th th:if="${leagueFull and timeToPick}">Your Pick:</th>-->
-<!--            <th>Driver:</th>-->
-<!--            <th>Rank:</th>-->
-<!--            <th>Points:</th>-->
-<!--            <th>Nationality</th>-->
-<!--            <th>Car#:</th>-->
-<!--            <th>Constructor:</th>-->
-<!--            <tr th:each="driverInfo : ${availableDrivers}">-->
-<!--              <div class="btn-group btn-group-toggle" data-toggle="buttons">-->
-<!--                <td th:if="${leagueFull and timeToPick}">-->
-<!--                  <label class="btn btn-secondary" for="driver-pick" th:field="${driverInfo.driverId}">-->
-<!--                    <input type="radio" name="driver-pick" id="driver-pick" th:field="*{driverId}"-->
-<!--                           th:value="${driverInfo.driverId}"/>-->
-<!--                  </label>-->
-<!--                </td>-->
-<!--              </div>-->
-<!--              <td th:text="${driverInfo.surname}"></td>-->
-<!--              <td th:text="${driverInfo.standing}"></td>-->
-<!--              <td th:text="${driverInfo.points.intValue()}"></td>-->
-<!--              <td th:text="${driverInfo.nationality}"></td>-->
-<!--              <td th:text="${driverInfo.carNumber}"></td>-->
-<!--              <td th:text="${driverInfo.constructor}"></td>-->
-<!--            </tr>-->
-<!--          </table>-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div class="container" th:if="${currentPickNumber > 20}">-->
-<!--  <div class="row">-->
-<!--    <div class="col-auto">-->
-<!--      <table class="table caption-top league-table">-->
-<!--        <caption><h3>F1 Drivers Championship:</h3></caption>-->
-<!--        <th>Rank:</th>-->
-<!--        <th>Points:</th>-->
-<!--        <th>Driver:</th>-->
-<!--        <th>Nationality</th>-->
-<!--        <th>Car#:</th>-->
-<!--        <th>Constructor:</th>-->
-<!--        <tr th:each="driverInfo : ${allDrivers}">-->
-<!--          <td th:text="${driverInfo.standing}"></td>-->
-<!--          &lt;!&ndash;          Only display decimal point in rare case where drivers get half a point.&ndash;&gt;-->
-<!--          <td th:if="${driverInfo.points % 1 == 0}" th:text="${driverInfo.points.intValue()}"></td>-->
-<!--          <td th:if="${driverInfo.points % 1 != 0}" th:text="${driverInfo.points}"></td>-->
-<!--          <td th:text="${driverInfo.surname}"></td>-->
-<!--          <td th:text="${driverInfo.nationality}"></td>-->
-<!--          <td th:text="${driverInfo.carNumber}"></td>-->
-<!--          <td th:text="${driverInfo.constructor}"></td>-->
-<!--        </tr>-->
-<!--      </table>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
