@@ -46,17 +46,57 @@ a,
     background: #2ea44f;
 }
 
-.text-success{
+.text-success {
     color: #2ea44f;
 
 }
 
 a:hover,
-.btn-link:hover{
+.btn-link:hover {
     color: #2ea44f;
 }
 
+/*.btn-secondary{*/
+/*    background: darkred;*/
+/*}*/
+
+/*.btn-secondary:hover{*/
+/*    background: orangered;*/
+/*}*/
+
+/*.btn-secondary:checked{*/
+/*    background: #2ea44f;*/
+/*}*/
+
+.btn-primary {
+    background: darkred;
+}
+
+.btn-primary:hover {
+    background: orangered;
+}
+
+.btn-primary:checked {
+    background: #2ea44f;
+}
+
+.btn-primary:active {
+    background: #2ea44f;
+}
+
+/*TODo
+   fix driver pick layout*/
+input[type="radio"] {
+    float: none;
+    margin-left: 5px;
+}
+
+/*.custom-control-label::after {*/
+/*    left: 1.5rem !important;*/
+/*}*/
+
 .league-table {
+    padding: 1%;
     border-collapse: collapse;
     width: 100%;
 }
@@ -65,7 +105,7 @@ a:hover,
 .league-table th,
 .league-table caption {
     border: 1px solid white;
-    padding: 5px;
+    padding: 2px;
 }
 
 .league-table tr:nth-child(odd),
