@@ -12,7 +12,8 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark bg-black">
     <div class="container-fluid nav">
-      <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+      <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
+              class="navbar-toggler"
               data-bs-target="#navbarNavAltMarkup" data-bs-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -95,13 +96,14 @@
                              th:placeholder="|Team ${user.username}|"
                              type="text"/>
                       <div class="error-message" th:if="${param.error != null}">
-                        Sorry, that team name is already taken...
+                        Sorry, that team name is already taken
+                      </div>
+                      <div class="error-message" th:text="${blankInput}"></div>
                       </div>
                       <input th:field="${currentLeague}" th:value="${currentLeague}" type="hidden"/>
                       <div>
                         <button class="btn btn-success m-2" type="submit">Submit</button>
                       </div>
-                    </div>
                   </form>
                 </div>
               </fieldset>
@@ -174,7 +176,8 @@
             <tr th:each="driverInfo : ${availableDrivers}">
               <td th:if="${leagueFull and !timeToPick}">
                 <div class="form-check">
-                  <input class="form-check-input" disabled id="driver-pick-dis" name="driver-pick-dis" th:field="*{driverId}"
+                  <input class="form-check-input" disabled id="driver-pick-dis" name="driver-pick-dis"
+                         th:field="*{driverId}"
                          th:value="${driverInfo.driverId}"
                          type="radio">
                   <label class="form-check-label" for="driver-pick-dis" th:field="${driverInfo.driverId}">Pick</label>

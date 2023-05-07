@@ -93,9 +93,13 @@ public class DashboardController {
   }
 
   @PostMapping("/dashboard/{userId}")
-  public String postCreateTeam(@PathVariable Long userId, User user) {
-    // Check for unique team names.
+  public String postCreateTeam(@PathVariable Long userId, User user, ModelMap modelMap) {
+    // Check for blank/unique team names.
     String teamName = user.getTeam().getTeamName();
+    if (teamName.isBlank()){
+      modelMap.addAttribute("blankInput", "Inputs cannot be empty");
+      return "redirect:/dashboard/" + userId;
+    }
     if (teamService.teamNameExists(teamName)) {
       Team team = new Team();
       user = userService.findById(userId);

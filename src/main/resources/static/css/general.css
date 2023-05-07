@@ -68,7 +68,6 @@ a,
 
 .text-success {
     color: #2ea44f;
-
 }
 
 a:hover,
@@ -76,8 +75,8 @@ a:hover,
     color: #2ea44f;
 }
 
-#confirm-pick {
-
+#confirm-pick,
+#confirm-pick-dis{
     background-color: orangered;
 }
 
@@ -85,7 +84,8 @@ a:hover,
     background-color: #2ea44f;
 }
 
-#pick-button {
+#pick-button,
+#pick-button-dis{
     padding: 0;
     border: none;
     background: none;

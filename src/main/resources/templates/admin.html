@@ -12,7 +12,8 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark bg-black">
     <div class="container-fluid nav">
-      <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+      <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
+              class="navbar-toggler"
               data-bs-target="#navbarNavAltMarkup" data-bs-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -58,8 +59,7 @@
       <th>Last Logout</th>
       <tr th:each="user : ${users}">
         <td th:text="${user.userId}"></td>
-        <td th:text="${user.authorities.iterator().next().getAuthority()==('ROLE_ADMIN')}
-              ? ${user.username + '(Ad)'}  : ${user.username}"></td>
+        <td th:text="${user.username}"></td>
         <td th:text="${user.team != null} ? ${user.team.league.leagueName}: 'No Team'"></td>
         <td th:text="${user.team != null} ? ${user.team.teamName}: 'No Team'"></td>
         <td th:text="${user.team != null} ? ${user.team.teamPoints}: 'N/A'"></td>
