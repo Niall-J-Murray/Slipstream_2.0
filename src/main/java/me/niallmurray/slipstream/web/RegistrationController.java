@@ -24,10 +24,10 @@ public class RegistrationController {
   @PostMapping("/register")
   public String postCreateUser(ModelMap modelMap, User user) {
 
-    if (user.getUsername().isBlank()||user.getEmail().isBlank()||user.getPassword().isBlank()){
-      modelMap.addAttribute("blankInput", "Inputs cannot be empty");
-      return "register";
-    }
+//    if (user.getUsername().isBlank()||user.getEmail().isBlank()||user.getPassword().isBlank()){
+//      modelMap.addAttribute("blankInput", "Inputs cannot be empty");
+//      return "register";
+//    }
 
     if (userService.usernameExists(user.getUsername())) {
       modelMap.addAttribute("userExists", "Username taken");
