@@ -23,14 +23,10 @@ public class RegistrationController {
 
   @PostMapping("/register")
   public String postCreateUser(ModelMap modelMap, User user) {
-
-//    if (user.getUsername().isBlank()||user.getEmail().isBlank()||user.getPassword().isBlank()){
-//      modelMap.addAttribute("blankInput", "Inputs cannot be empty");
-//      return "register";
-//    }
+    user.setUsername(user.getUsername().trim());
 
     if (userService.usernameExists(user.getUsername())) {
-      modelMap.addAttribute("userExists", "Username taken");
+      modelMap.addAttribute("userExists", "Username not available");
       return "register";
     }
 
@@ -43,7 +39,9 @@ public class RegistrationController {
       modelMap.addAttribute("badPassword", "Password must be 6+ characters long");
       return "register";
     }
+
     userService.createUser(user);
     return "redirect:/login";
   }
+
 }

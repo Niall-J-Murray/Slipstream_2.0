@@ -22,6 +22,7 @@ public class UserService {
   private UserRepository userRepository;
 
   public void createUser(User user) {
+    user.setUsername(user.getUsername().trim());
     Authority authority = new Authority();
     authority.setUser(user);
     authority.setAuthority("ROLE_USER");
@@ -29,7 +30,7 @@ public class UserService {
     user.getAuthorities().add(authority);
     user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
     // For new users first login and to check for unsuccessful logouts.
-    user.setLastLogout(String.valueOf(LocalDateTime.of(666, 6, 6, 6, 6)));
+    user.setLastLogout(String.valueOf(LocalDateTime.of(123, 4, 5, 6, 7)));
 
     userRepository.save(user);
   }
