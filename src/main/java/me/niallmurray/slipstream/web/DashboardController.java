@@ -109,6 +109,21 @@ public class DashboardController {
     return "redirect:/dashboard/%d?error".formatted(userId);
   }
 
+
+  //  Delete not working:
+//  "Cannot delete or update a parent row: a foreign key constraint fails (`slipstream2`.`driver_teams`, CONSTRAINT `FK6gy5u9nbj0y8o0y4e25xdew2n` FOREIGN KEY (`teams_team_id`) REFERENCES `team` (`team_id`))"
+//  Example: User A still has team (Team 1), but team was removed from league and drivers are undrafted again...S
+  @PostMapping("/dashboard/{userId}/deleteTeam")
+  public String postDeleteTeam(@PathVariable Long userId) {
+    User user = userService.findById(userId);
+    System.out.println(user);
+    System.out.println(user.getTeam());
+    teamService.deleteTeam(user.getTeam());
+    user.setTeam(null);
+    userService.updateUser(user);
+    return "redirect:/dashboard/" + userId;
+  }
+
   @PostMapping("/dashboard/{userId}/draftPick")
   public String postMakePick(@PathVariable Long userId, Driver driver) {
     if (driver.getDriverId() == null) {

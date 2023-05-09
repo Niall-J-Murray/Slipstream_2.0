@@ -147,7 +147,6 @@ public class TeamService {
     return nextUserPick;
   }
 
-
   public List<Team> getAllTeams() {
     return teamRepository.findAll();
   }
@@ -163,4 +162,13 @@ public class TeamService {
     allTeams.sort(Comparator.comparing(Team::getFirstPickNumber));
     return allTeams;
   }
+
+  public void deleteTeam(Team team) {
+    League league = team.getLeague();
+    league.getTeams().remove(team);
+
+    leagueRepository.save(league);
+    teamRepository.delete(team);
+  }
+
 }

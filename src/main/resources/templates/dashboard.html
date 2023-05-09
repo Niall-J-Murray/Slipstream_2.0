@@ -75,6 +75,11 @@
                 <div th:if="${currentPickNumber > 20}">
                   <h3>Your league is active!</h3>
                   <h3>Check back after each race to see your ranking.</h3>
+                  <form action="" method="POST" th:action="@{/dashboard/{userId}/deleteTeam (userId=${user.userId})}"
+                        th:object="${user}">
+                    <div>Changed your mind?</div>
+                    <button class="btn btn-success" id="delete-team-button" type="submit" onsubmit="confirm('Are you sure you want to delete your team?')">Delete Team</button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -197,7 +202,6 @@
               <td th:text="${driverInfo.carNumber}"></td>
               <td th:text="${driverInfo.constructor}"></td>
             </tr>
-
           </form>
         </table>
       </div>
