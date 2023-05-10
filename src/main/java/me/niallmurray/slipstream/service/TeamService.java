@@ -125,50 +125,59 @@ public class TeamService {
     driverRepository.save(driver);
   }
 
-  public int getCurrentPickNumber(League league) {
-    List<Driver> undraftedDrivers = driverService.getUndraftedDrivers(league);
-    return 21 - undraftedDrivers.size();
+  public void removeDriverFromTeam(Long driverId, Long teamId) {
+    Team team = teamRepository.findById(teamId).get();
+    Driver driver = driverRepository.findById(driverId).get();
+
   }
 
-  public boolean timeToPick(League league, Long teamId) {
-    int firstPickNumber = teamRepository.findById(teamId).get().getFirstPickNumber();
-    int secondPickNumber = teamRepository.findById(teamId).get().getSecondPickNumber();
-    return firstPickNumber == getCurrentPickNumber(league) || secondPickNumber == getCurrentPickNumber(league);
-  }
-
-  public String getNextToPick(League league) {
-    String nextUserPick = null;
-    List<Team> teamsInLeague = getAllTeamsByLeague(league);
-    for (Team team : teamsInLeague) {
-      if (timeToPick(league, team.getTeamId())) {
-        nextUserPick = team.getUser().getUsername();
-      }
+    public int getCurrentPickNumber (League league){
+      List<Driver> undraftedDrivers = driverService.getUndraftedDrivers(league);
+      return 21 - undraftedDrivers.size();
     }
-    return nextUserPick;
+
+    public boolean timeToPick (League league, Long teamId){
+      int firstPickNumber = teamRepository.findById(teamId).get().getFirstPickNumber();
+      int secondPickNumber = teamRepository.findById(teamId).get().getSecondPickNumber();
+      return firstPickNumber == getCurrentPickNumber(league) || secondPickNumber == getCurrentPickNumber(league);
+    }
+
+    public String getNextToPick (League league){
+      String nextUserPick = null;
+      List<Team> teamsInLeague = getAllTeamsByLeague(league);
+      for (Team team : teamsInLeague) {
+        if (timeToPick(league, team.getTeamId())) {
+          nextUserPick = team.getUser().getUsername();
+        }
+      }
+      return nextUserPick;
+    }
+
+    public List<Team> getAllTeams () {
+      return teamRepository.findAll();
+    }
+
+    public List<Team> getAllTeamsByLeague (League league){
+      return teamRepository.findAll().stream()
+              .filter(team -> team.getLeague().equals(league))
+              .collect(Collectors.toList());
+    }
+
+    public List<Team> getAllTeamsByNextPick () {
+      List<Team> allTeams = teamRepository.findAll();
+      allTeams.sort(Comparator.comparing(Team::getFirstPickNumber));
+      return allTeams;
+    }
+
+    public void deleteTeam (Team team){
+      League league = team.getLeague();
+      league.getTeams().remove(team);
+      team.setDrivers(null);
+      team.setUser(null);
+      team.setTeamId(null);
+
+      leagueRepository.save(league);
+      teamRepository.delete(team);
+    }
+
   }
-
-  public List<Team> getAllTeams() {
-    return teamRepository.findAll();
-  }
-
-  public List<Team> getAllTeamsByLeague(League league) {
-    return teamRepository.findAll().stream()
-            .filter(team -> team.getLeague().equals(league))
-            .collect(Collectors.toList());
-  }
-
-  public List<Team> getAllTeamsByNextPick() {
-    List<Team> allTeams = teamRepository.findAll();
-    allTeams.sort(Comparator.comparing(Team::getFirstPickNumber));
-    return allTeams;
-  }
-
-  public void deleteTeam(Team team) {
-    League league = team.getLeague();
-    league.getTeams().remove(team);
-
-    leagueRepository.save(league);
-    teamRepository.delete(team);
-  }
-
-}

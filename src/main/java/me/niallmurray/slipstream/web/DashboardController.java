@@ -55,6 +55,8 @@ public class DashboardController {
     modelMap.addAttribute("allDrivers", driverService.sortDriversStanding());
     modelMap.addAttribute("leagueFull", false);
     modelMap.addAttribute("timeToPick", false);
+    modelMap.addAttribute("leagueActive", false);
+
 
     // Change view depending on if user has created a team
     // Also handles NPEs.
@@ -88,6 +90,11 @@ public class DashboardController {
       if (teamService.timeToPick(user.getTeam().getLeague(), user.getTeam().getTeamId())) {
         modelMap.addAttribute("timeToPick", true);
       }
+    }
+
+//    Set active flag to true when draft is finished, but will not change if teams are removed from league
+    if (teamService.getCurrentPickNumber(currentLeague)<21){
+      currentLeague.setIsActive(true);
     }
     return "dashboard";
   }

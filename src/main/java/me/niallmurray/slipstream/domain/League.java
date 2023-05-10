@@ -23,10 +23,13 @@ public class League {
   private String leagueName;
   @Column()
   private String creationTime;
+  @Column()
+  private Boolean isActive;
   @ManyToMany(
           fetch = FetchType.LAZY,
           cascade = {CascadeType.MERGE})
   private List<Team> teams = new ArrayList<>();
+
 
   @Override
   public String toString() {
