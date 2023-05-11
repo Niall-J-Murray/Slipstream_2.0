@@ -22,9 +22,11 @@ public class League {
   @Column(nullable = false, unique = true)
   private String leagueName;
   @Column()
-  private String creationTime;
+  private String creationTimestamp;
   @Column()
   private Boolean isActive;
+  @Column()
+  private String activeTimestamp;
   @ManyToMany(
           fetch = FetchType.LAZY,
           cascade = {CascadeType.MERGE})
@@ -35,7 +37,7 @@ public class League {
   public String toString() {
     return "Id= " + leagueId +
             ", Name= " + leagueName +
-            ", Creation Time=" + creationTime +
+            ", Creation Time=" + creationTimestamp +
             ", No. of Teams= " + teams.size();
   }
 

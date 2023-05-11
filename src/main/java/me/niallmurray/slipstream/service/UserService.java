@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import java.util.Set;
 public class UserService {
 
   @Autowired
-  ActiveUserStore activeUserStore;
+  private ActiveUserStore activeUserStore;
   @Autowired
   private UserRepository userRepository;
 
@@ -75,5 +76,13 @@ public class UserService {
     User user = findById(userId);
     user.setLastLogout(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yy HH:mm")));
     userRepository.save(user);
+  }
+
+  public void save(User user) {
+    userRepository.save(user);
+  }
+
+  public List<User> findAll() {
+    return userRepository.findAll();
   }
 }

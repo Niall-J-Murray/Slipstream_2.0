@@ -76,7 +76,7 @@ a:hover,
 }
 
 #confirm-pick,
-#confirm-pick-dis{
+#confirm-pick-dis {
     background-color: orangered;
 }
 
@@ -85,7 +85,7 @@ a:hover,
 }
 
 #pick-button,
-#pick-button-dis{
+#pick-button-dis {
     padding: 0;
     border: none;
     background: none;

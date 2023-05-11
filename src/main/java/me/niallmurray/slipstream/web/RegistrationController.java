@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class RegistrationController {
-
   @Autowired
   private UserService userService;
 
@@ -19,7 +18,6 @@ public class RegistrationController {
     model.addAttribute("user", new User());
     return "register";
   }
-
 
   @PostMapping("/register")
   public String postCreateUser(ModelMap modelMap, User user) {

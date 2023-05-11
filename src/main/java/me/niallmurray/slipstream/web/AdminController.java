@@ -26,15 +26,14 @@ import java.util.Objects;
 
 @Controller
 public class AdminController {
-
   @Autowired
-  ActiveUserStore activeUserStore;
+  private ActiveUserStore activeUserStore;
   @Autowired
-  TeamService teamService;
+  private TeamService teamService;
   @Autowired
-  LeagueService leagueService;
+  private LeagueService leagueService;
   @Autowired
-  DriverService driverService;
+  private DriverService driverService;
   @Autowired
   private AdminService adminService;
   @Value("${ergast.urls.base}${ergast.urls.currentDriverStandings}")

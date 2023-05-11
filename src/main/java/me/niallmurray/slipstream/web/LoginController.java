@@ -14,9 +14,8 @@ import java.util.List;
 
 @Controller
 public class LoginController {
-
   @Autowired
-  ActiveUserStore activeUserStore;
+  private ActiveUserStore activeUserStore;
   @Autowired
   private AdminService adminService;
   @Autowired
