@@ -17,15 +17,24 @@ public class LeagueService {
   @Autowired
   private LeagueRepository leagueRepository;
   @Autowired
+  private TeamService teamService;
+  @Autowired
   private DriverService driverService;
+  @Autowired
+  private AdminService adminService;
 
   public League createLeague() {
+    // Fetch driver info from API before creating 1st league
+    if (driverService.findAllDrivers().isEmpty()) {
+      driverService.addDrivers(driverService.getDriversFromResponse());
+    }
     League league = new League();
     league.setLeagueName("League # " + (leagueRepository.findAll().size() + 1));
     league.setTeams(new ArrayList<>());
     league.setIsActive(false);
     league.setCreationTimestamp(
             LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yy HH:mm")));
+
     return leagueRepository.save(league);
   }
 
@@ -55,6 +64,12 @@ public class LeagueService {
     league.setIsActive(true);
     league.setActiveTimestamp(
             LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yy HH:mm")));
+  }
+
+  public void updateAllLeagues() {
+    for (League league : findAll()) {
+      teamService.updateLeagueTeamsRankings(league);
+    }
   }
 
   public List<League> findAll() {

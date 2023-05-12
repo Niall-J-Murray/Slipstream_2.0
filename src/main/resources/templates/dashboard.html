@@ -59,10 +59,11 @@
               <p th:text="|Your team: '${user.team.teamName}'|"></p>
               <p th:text="|Random 1st pick draft number (1-10): ${user.team.firstPickNumber}|"></p>
               <p th:text="|Random 2nd pick draft number (11-20): ${user.team.secondPickNumber}|"></p>
+              <hr class="pb-3">
               <div>
-                <p th:if="${!leagueFull}" th:text="|League is ${teamLeague.teams.size()} of 10 teams full.|"></p>
-                <p th:if="${!leagueFull}"> Draft will start when league is full...</p>
-                <div th:if="${leagueFull and currentPickNumber <= 20}">
+                <p th:if="${!leagueActive and !leagueFull}" th:text="|League is ${teamLeague.teams.size()} of 10 teams full.|"></p>
+                <h3 th:if="${!leagueActive and !leagueFull}"> Draft will start when league is full...</h3>
+                <div th:if="${leagueFull and !leagueActive}">
                   <p th:if="${!timeToPick}">
                     Draft in progress, please wait for your turn to pick.</p>
                   <h4 style="color: #2ea44f; text-decoration-line: underline"
@@ -222,7 +223,7 @@
 
   <div class="container" th:if="${leagueActive}">
     <div class="row">
-      <div class="col-auto">
+      <div class="col-6">
         <table class="table caption-top league-table">
           <caption><h3 th:text="|${teamLeague.leagueName} Standings:|"></h3></caption>
           <th>Rank:</th>
@@ -265,7 +266,7 @@
           </table>
         </div>
       </div>
-      <div class="col-auto">
+      <div class="col-6">
         <table class="table caption-top league-table">
           <caption><h3>F1 Drivers Championship:</h3></caption>
           <th>Rank:</th>

@@ -117,17 +117,12 @@ public class DashboardController {
   @PostMapping("/dashboard/{userId}/deleteTeam")
   public String postDeleteTeam(@PathVariable Long userId) {
     User user = userService.findById(userId);
-    System.out.println(user);
-    System.out.println(user.getTeam());
-    teamService.deleteTeam(user.getTeam());
-    // TODO: 11/05/2023
-    //  Cannot delete or update a parent row:
-    //  a foreign key constraint fails
-    //  (`slipstream2`.`driver_teams`, CONSTRAINT `FK6gy5u9nbj0y8o0y4e25xdew2n`
-    //  FOREIGN KEY (`teams_team_id`) REFERENCES `team` (`team_id`))
-    //  Cannot delete teams...
-//    user.setTeam(null);
-//    userService.updateUser(user);
+    Team team = user.getTeam();
+    League league = team.getLeague();
+
+    teamService.deleteTeam(team);
+    userService.save(user);
+    leagueService.save(league);
     return "redirect:/dashboard/" + userId;
   }
 
@@ -136,7 +131,6 @@ public class DashboardController {
     if (driver.getDriverId() == null) {
       return "redirect:/dashboard/%d?error".formatted(userId);
     }
-
     Long driverId = driver.getDriverId();
     teamService.addDriverToTeam(userId, driverId);
 

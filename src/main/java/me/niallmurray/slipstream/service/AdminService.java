@@ -1,6 +1,8 @@
 package me.niallmurray.slipstream.service;
 
+import me.niallmurray.slipstream.domain.Driver;
 import me.niallmurray.slipstream.domain.User;
+import me.niallmurray.slipstream.web.AdminController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -23,4 +25,8 @@ public class AdminService {
   public void removeTeamFromLeague(Long leagueId, Long teamId) {
     leagueService.adminRemoveTeamFromLeague(leagueId, teamId);
   }
+
+//  public List<Driver> getDriversFromApi(List<Driver> drivers){
+//    return drivers;
+//  }
 }

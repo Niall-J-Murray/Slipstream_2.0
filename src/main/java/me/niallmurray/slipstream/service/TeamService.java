@@ -164,15 +164,17 @@ public class TeamService {
     User user = team.getUser();
     for (Driver driver : drivers) {
       driver.getTeams().remove(team);
+      driverService.save(driver);
     }
     league.getTeams().remove(team);
     user.setTeam(null);
-//    team.setDrivers(null);
-//    team.setUser(null);
-//    team.setTeamId(null);
-
-    leagueService.save(league);
+    System.out.println("Test:");
+    System.out.println(user);
+    System.out.println(team);
+    System.out.println(league);
     teamRepository.delete(team);
+    userService.save(user);
+    leagueService.save(league);
   }
 
   public List<Team> saveAll(List<Team> teams) {
