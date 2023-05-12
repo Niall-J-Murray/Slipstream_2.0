@@ -28,7 +28,6 @@ public class TeamService {
   public void createTeam(User user) {
     Team team = new Team();
     team.setUser(user);
-    team.setTeamId(user.getUserId());
 
     if (teamNameExists(user.getTeam().getTeamName())) {
       team.setTeamName(user.getTeam().getTeamName());
@@ -43,7 +42,6 @@ public class TeamService {
     addOneTeamToLeague(team);
   }
 
-
   public void addOneTeamToLeague(Team team) {
     League league = leagueService.findNewestLeague();
     List<Team> teams = league.getTeams();
@@ -51,7 +49,6 @@ public class TeamService {
     league.setTeams(teams);
     leagueService.save(league);
   }
-
 
   private int randomPickNumber() {
     RandomGenerator random = RandomGenerator.getDefault();
@@ -97,12 +94,6 @@ public class TeamService {
     driverService.save(driver);
   }
 
-  public void removeDriverFromTeam(Long driverId, Long teamId) {
-    Team team = findById(teamId);
-    Driver driver = driverService.findById(driverId);
-
-  }
-
   public boolean timeToPick(League league, Long teamId) {
     int firstPickNumber = findById(teamId).getFirstPickNumber();
     int secondPickNumber = findById(teamId).getSecondPickNumber();
@@ -142,6 +133,7 @@ public class TeamService {
     return teamRepository.saveAll(teams);
   }
 
+
   public List<Team> getAllTeams() {
     return teamRepository.findAll();
   }
@@ -175,10 +167,6 @@ public class TeamService {
     teamRepository.delete(team);
     userService.save(user);
     leagueService.save(league);
-  }
-
-  public List<Team> saveAll(List<Team> teams) {
-    return teamRepository.saveAll(teams);
   }
 
   public Team findById(Long teamId) {

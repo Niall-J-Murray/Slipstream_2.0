@@ -10,24 +10,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class LeagueService {
   @Autowired
   private LeagueRepository leagueRepository;
   @Autowired
-  private TeamService teamService;
-  @Autowired
   private DriverService driverService;
-  @Autowired
-  private AdminService adminService;
 
   public League createLeague() {
-    // Fetch driver info from API before creating 1st league
-    if (driverService.findAllDrivers().isEmpty()) {
-      driverService.addDrivers(driverService.getDriversFromResponse());
-    }
     League league = new League();
     league.setLeagueName("League # " + (leagueRepository.findAll().size() + 1));
     league.setTeams(new ArrayList<>());
@@ -47,14 +38,9 @@ public class LeagueService {
     return allLeagues.get(allLeagues.size() - 1);
   }
 
-  public void adminRemoveTeamFromLeague(Long leagueId, Long teamId) {
-    League league = findById(leagueId);
-    league.getTeams().removeIf(team -> Objects.equals(team.getTeamId(), teamId));
-  }
-
   public int getCurrentPickNumber(League league) {
     List<Driver> undraftedDrivers = driverService.getUndraftedDrivers(league);
-    if (undraftedDrivers.size() == 0) {
+    if (league.getTeams().size() == 10 && undraftedDrivers.size() == 0) {
       activateLeague(league);
     }
     return 21 - undraftedDrivers.size();
@@ -66,18 +52,8 @@ public class LeagueService {
             LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yy HH:mm")));
   }
 
-  public void updateAllLeagues() {
-    for (League league : findAll()) {
-      teamService.updateLeagueTeamsRankings(league);
-    }
-  }
-
   public List<League> findAll() {
     return leagueRepository.findAll();
-  }
-
-  public League findById(Long leagueId) {
-    return leagueRepository.findById(leagueId).orElse(null);
   }
 
   public void save(League league) {

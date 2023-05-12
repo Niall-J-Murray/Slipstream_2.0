@@ -78,8 +78,8 @@ public class DashboardController {
       modelMap.addAttribute("teamsByRank", teamService.updateLeagueTeamsRankings(currentLeague));
 
     }
-// Currently 10 players per league.
-// After league is full, new users are added to new league.
+    // Currently 10 players per league.
+    // After league is full, new users are added to new league.
     if (!userService.isAdmin(user) && user.getTeam() != null) {
       if (user.getTeam().getLeague().getTeams().size() >= 10) {
         modelMap.addAttribute("leagueFull", true);
@@ -114,6 +114,16 @@ public class DashboardController {
     return "redirect:/dashboard/%d?error".formatted(userId);
   }
 
+  @PostMapping("/dashboard/{userId}/draftPick")
+  public String postMakePick(@PathVariable Long userId, Driver driver) {
+    if (driver.getDriverId() == null) {
+      return "redirect:/dashboard/%d?error".formatted(userId);
+    }
+    Long driverId = driver.getDriverId();
+    teamService.addDriverToTeam(userId, driverId);
+    return "redirect:/dashboard/" + userId;
+  }
+
   @PostMapping("/dashboard/{userId}/deleteTeam")
   public String postDeleteTeam(@PathVariable Long userId) {
     User user = userService.findById(userId);
@@ -125,18 +135,6 @@ public class DashboardController {
     leagueService.save(league);
     return "redirect:/dashboard/" + userId;
   }
-
-  @PostMapping("/dashboard/{userId}/draftPick")
-  public String postMakePick(@PathVariable Long userId, Driver driver) {
-    if (driver.getDriverId() == null) {
-      return "redirect:/dashboard/%d?error".formatted(userId);
-    }
-    Long driverId = driver.getDriverId();
-    teamService.addDriverToTeam(userId, driverId);
-
-    return "redirect:/dashboard/" + userId;
-  }
-
 }
 
 
