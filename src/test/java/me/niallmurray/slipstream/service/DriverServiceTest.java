@@ -40,7 +40,6 @@ class DriverServiceTest {
       List<Driver> expectedValue = null;
       DriverService driverservice = new DriverService();
       List<Driver> actualValue = driverservice.sortDriversStanding();
-      System.out.println("Expected Value=" + expectedValue + " . Actual Value=" + actualValue);
       Assertions.assertEquals(expectedValue, actualValue);
     } catch (Exception exception) {
       exception.printStackTrace();
@@ -55,7 +54,6 @@ class DriverServiceTest {
       League league = null;
       DriverService driverservice = new DriverService();
       List<Driver> actualValue = driverservice.getUndraftedDrivers(league);
-      System.out.println("Expected Value=" + expectedValue + " . Actual Value=" + actualValue);
       Assertions.assertEquals(expectedValue, actualValue);
     } catch (Exception exception) {
       exception.printStackTrace();
@@ -70,7 +68,6 @@ class DriverServiceTest {
       Long driverId = 0L;
       DriverService driverservice = new DriverService();
       Driver actualValue = driverservice.findById(driverId);
-      System.out.println("Expected Value=" + expectedValue + " . Actual Value=" + actualValue);
       Assertions.assertEquals(expectedValue, actualValue);
     } catch (Exception exception) {
       exception.printStackTrace();
