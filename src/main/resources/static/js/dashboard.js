@@ -1,5 +1,3 @@
-const submitBtn = document.getElementById('submit-btn');
-
 const validateTeam = () => {
     const teamName = document.getElementById('teamName');
     const teamNameMessage = document.getElementById('team-name-message');

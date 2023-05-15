@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
+@SuppressWarnings("SameReturnValue")
 @Controller
 public class DashboardController {
   @Autowired

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class AdminService {
+  @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
   @Autowired
   private UserService userService;
 

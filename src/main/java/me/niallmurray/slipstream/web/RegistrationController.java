@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+@SuppressWarnings("SameReturnValue")
 @Controller
 public class RegistrationController {
   @Autowired

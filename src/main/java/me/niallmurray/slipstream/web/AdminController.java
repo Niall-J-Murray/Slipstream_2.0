@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 @Controller
 public class AdminController {
   @Autowired
